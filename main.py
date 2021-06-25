@@ -19,6 +19,7 @@ def validate_no_number(function):
     :param function: function return name as string input from user
     :return: validated name with no number
     """
+
     def check_has_numbers(name):
         logger.info("checking name if has number[s] '%s'", name)
         has_number = False
