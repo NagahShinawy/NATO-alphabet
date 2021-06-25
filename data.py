@@ -1,0 +1,31 @@
+"""
+created by Nagaj at 25/06/2021
+"""
+words = [
+    "Alfa",
+    "Bravo",
+    "Charlie",
+    "Delta",
+    "Echo",
+    "Foxtrot",
+    "Golf",
+    "Hotel",
+    "India",
+    "Juliett",
+    "Kilo",
+    "Lima",
+    "Mike",
+    "November",
+    "Oscar",
+    "Papa",
+    "Quebec",
+    "Romeo",
+    "Sierra",
+    "Tango",
+    "Uniform",
+    "Victor",
+    "Whiskey",
+    "X-ray",
+    "Yankee",
+    "Zulu",
+]
