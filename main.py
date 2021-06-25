@@ -62,7 +62,7 @@ def main():
     logger.info("All list nato alphabet mapping were loaded %s", nato)
     name = get_name()
     nato_for_name = {
-        char.upper(): nato.get(char.upper()) for char in name if char.upper() in nato
+        char.upper(): nato[char.upper()] for char in name if char.upper() in nato
     }
     names = load_names()
     to_json(nato_for_name, names)
