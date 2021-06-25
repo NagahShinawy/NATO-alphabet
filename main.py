@@ -5,6 +5,8 @@ from string import ascii_uppercase
 import json
 import os
 from data import words
+from logs import logger
+
 
 DATA_PATH = "data.json"
 MIN_NAME_LEN = 3
@@ -18,6 +20,7 @@ def validate_no_number(function):
     :return: validated name with no number
     """
     def check_has_numbers(name):
+        logger.info("checking name if has number[s] '%s'", name)
         has_number = False
         for char in name:
             if char.isdigit():
@@ -29,8 +32,10 @@ def validate_no_number(function):
         name = function(*args, **kwargs)
         has_number = check_has_numbers(name)
         while has_number:
+            logger.error("invalid name with number[s] for '%s'", name)
             name = function(*args, **kwargs)
             has_number = check_has_numbers(name)
+        logger.info("validated name with no number[s] for '%s'", name)
         return name
 
     return wrapper
@@ -47,7 +52,9 @@ def validate_empty_and_len(function):
         name = function(*args, **kwargs)
 
         while name == EMPTY or len(name) < MIN_NAME_LEN:
+            logger.error("empty or short name for name '%s'", name)
             name = function()
+        logger.info("validated length for name '%s'", name)
         return name
 
     return wrapper
@@ -71,8 +78,10 @@ def load_names() -> list:
     data_filepath = os.path.join(os.getcwd(), "data.json")
     is_exist = os.path.isfile(data_filepath)
     if is_exist:
+        logger.info("data file found at '%s'", data_filepath)
         with open(data_filepath) as infile:
             return json.load(infile)
+    logger.info("data file not found, return []")
     return []
 
 
@@ -83,9 +92,11 @@ def to_json(name: dict, names: list) -> None:
     :param names: list of nato names
     :return: None
     """
-    names.append(name)
+    if name not in names:
+        names.append(name)
     with open(DATA_PATH, "w") as outfile:
         json.dump(names, outfile, indent=4)
+    logger.info("payload [%s] was dumped successfully", name)
 
 
 def main():
@@ -94,6 +105,7 @@ def main():
     :return:
     """
     nato = dict(zip(ascii_uppercase, words))
+    logger.info("All list nato alphabet mapping were loaded %s", nato)
     name = get_name()
     nato_for_name = {
         char.upper(): nato.get(char.upper()) for char in name if char.upper() in nato
