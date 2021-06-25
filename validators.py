@@ -32,7 +32,7 @@ def validate_no_number(function):
             name = function(*args, **kwargs)
             has_number = check_has_numbers(name)
         logger.info("validated name with no number[s] for '%s'", name)
-        return name
+        return name.upper()
 
     return wrapper
 
